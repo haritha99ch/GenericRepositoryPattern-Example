@@ -11,7 +11,7 @@ public static class Configure
     {
         services.AddDbContext<ApplicationDbContext>(UseSqlServerFromOptions);
     }
-    
+
     private static void UseSqlServerFromOptions(IServiceProvider serviceProvider, DbContextOptionsBuilder builder)
     {
         var sqlServerOptions = serviceProvider.GetOptions<SqlServerOptions>();

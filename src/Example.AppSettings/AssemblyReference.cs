@@ -1,2 +1,2 @@
 ﻿namespace Example.AppSettings;
-public class AssemblyReference{ }
+public class AssemblyReference { }

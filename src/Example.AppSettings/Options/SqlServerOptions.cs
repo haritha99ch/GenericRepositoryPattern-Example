@@ -1,5 +1,4 @@
-﻿
-namespace Example.AppSettings.Options;
+﻿namespace Example.AppSettings.Options;
 public class SqlServerOptions : OptionsBase
 {
     [Required]

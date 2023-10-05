@@ -8,7 +8,7 @@ namespace Example.Infrastructure.Factories.Contexts;
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
     /// <summary>
-    ///     Creates a new instance of the <see cref="ApplicationDbContext"/> using the <see cref="IHost"/>.
+    ///     Creates a new instance of the <see cref="ApplicationDbContext" /> using the <see cref="IHost" />.
     /// </summary>
     /// <returns>ApplicationDbContext</returns>
     public ApplicationDbContext CreateDbContext(string[] args)
@@ -21,7 +21,7 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
                 e.AddAppSettingsOptions();
                 e.AddInfrastructure();
             }).Build();
-        
+
         return host.Services.GetRequiredService<ApplicationDbContext>();
     }
 }

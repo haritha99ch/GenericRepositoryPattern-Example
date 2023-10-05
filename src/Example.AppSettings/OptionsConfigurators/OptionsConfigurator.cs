@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Example.AppSettings.OptionsConfigurators;
-public sealed class OptionsConfigurator<TOptions> : 
-    IConfigureOptions<TOptions>, IPostConfigureOptions<TOptions> where TOptions : OptionsBase
+public sealed class OptionsConfigurator<TOptions> : IConfigureOptions<TOptions>, IPostConfigureOptions<TOptions>
+    where TOptions : OptionsBase
 {
     private readonly IConfiguration _configuration;
-    
+
     public OptionsConfigurator(IConfiguration configuration)
     {
         _configuration = configuration;

@@ -1,2 +1,2 @@
 ﻿namespace Example.AppSettings.Common;
-public abstract class OptionsBase{ }
+public abstract class OptionsBase { }
