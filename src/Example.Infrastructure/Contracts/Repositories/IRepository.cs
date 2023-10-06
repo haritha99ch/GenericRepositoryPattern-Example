@@ -4,7 +4,7 @@ namespace Example.Infrastructure.Contracts.Repositories;
 public interface IRepository<TEntity> where TEntity : Entity
 {
 
-    #region CRUD
+    #region Basic CRUD
 
     Task<TEntity> AddAsync(TEntity record, CancellationToken? cancellationToken = null);
     Task<TEntity?> GetByIdAsync(Guid id, CancellationToken? cancellationToken = null);
