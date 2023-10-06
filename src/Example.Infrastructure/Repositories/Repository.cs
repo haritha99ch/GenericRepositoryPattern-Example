@@ -24,6 +24,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         var newRecord = await EntitySet.AddAsync(record, cancellationToken ?? CancellationToken.None);
         await SaveChangesAsync(cancellationToken);
+        newRecord.State = EntityState.Detached;
         return newRecord.Entity;
     }
 
@@ -35,14 +36,10 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
     public async Task<TEntity> UpdateAsync(TEntity record, CancellationToken? cancellationToken = null)
     {
-        if (EntitySet.Local.Any(e => e.Id == record.Id))
-        {
-            await SaveChangesAsync(cancellationToken);
-            return record;
-        }
-        var updatedEntity = EntitySet.Update(record);
+        var entry = EntitySet.Update(record);
         await SaveChangesAsync(cancellationToken);
-        return updatedEntity.Entity;
+        entry.State = EntityState.Detached;
+        return entry.Entity;
     }
 
     public async Task<bool> DeleteAsync(Guid id, CancellationToken? cancellationToken = null)

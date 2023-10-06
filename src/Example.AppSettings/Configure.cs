@@ -11,6 +11,9 @@ public static class Configure
         configuration.AddUserSecrets<AssemblyReference>();
     }
 
+    /// <summary>
+    ///     <see cref="Example.AppSettings.Configure.AddAppSettings" /> must be called before this within configuration
+    /// </summary>
     public static void AddAppSettingsOptions(this IServiceCollection services)
     {
         services.ConfigureOptions<OptionsConfigurator<SqlServerOptions>>();
