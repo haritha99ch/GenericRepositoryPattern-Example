@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 namespace Example.Infrastructure.Common;
 public abstract class Specification<TEntity> where TEntity : Entity
 {
-    public Expression<Func<TEntity, bool>>? PredicateBy;
+    public readonly Expression<Func<TEntity, bool>>? PredicateBy;
     public List<Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>> Includes { get; } = new();
     public Expression<Func<TEntity, object>>? OrderBy { get; private set; }
     public Expression<Func<TEntity, object>>? OrderByDescending { get; private set; }
 
-    protected Specification(Expression<Func<TEntity, bool>>? predicateBy)
+    protected Specification(Expression<Func<TEntity, bool>>? predicateBy = null)
     {
         PredicateBy = predicateBy;
     }

@@ -12,6 +12,7 @@ var host = Host.CreateDefaultBuilder(args)
 var context = host.GetService<ApplicationDbContext>();
 await context.CleanUp();
 
+
 #region Initial CRUD Operations
 
 var memberRepository = host.GetService<IRepository<Member>>();
@@ -47,5 +48,6 @@ for (var i = 0; i < 2; i++)
 var allBlog = await blogRepository.GetAllAsync();
 
 #endregion
+
 
 Console.ReadKey();

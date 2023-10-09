@@ -1,8 +1,10 @@
 ﻿using Example.Domain.Common;
+using Example.Infrastructure.Common;
 
 namespace Example.Infrastructure.Contracts.Repositories;
 public interface IRepository<TEntity> where TEntity : Entity
 {
+
 
     #region Basic CRUD
 
@@ -14,5 +16,26 @@ public interface IRepository<TEntity> where TEntity : Entity
     Task<bool> ExistsAsync(Guid id, CancellationToken? cancellationToken = null);
 
     #endregion
+
+
+    #region Specification
+
+    Task<TEntity?> GetByIdAsync<TSpecification>(Guid id,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>;
+
+    Task<IEnumerable<TEntity>> GetAllAsync<TSpecification>(
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>;
+
+    Task<IEnumerable<TEntity>> GetManyAsync<TSpecification>(TSpecification specification,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>;
+
+    Task<TEntity?> GetOneAsync<TSpecification>(TSpecification specification,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>;
+
+    Task<bool> ExistsAsync<TSpecification>(TSpecification specification,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>;
+
+    #endregion
+
 
 }

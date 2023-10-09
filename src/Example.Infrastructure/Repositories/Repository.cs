@@ -1,6 +1,8 @@
 ﻿using Example.Domain.Common;
+using Example.Infrastructure.Common;
 using Example.Infrastructure.Contexts;
 using Example.Infrastructure.Contracts.Repositories;
+using Example.Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -17,6 +19,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         _context = context;
     }
+
 
     #region CRUD
 
@@ -55,6 +58,38 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         => await Queryable.AnyAsync(PredicateById(id), cancellationToken ?? CancellationToken.None);
 
     #endregion
+
+
+    #region Specification
+
+    public async Task<TEntity?> GetByIdAsync<TSpecification>(Guid id,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
+    {
+        var specification = (TSpecification)Activator.CreateInstance(typeof(TSpecification), PredicateById(id))!;
+        return await Queryable.AddSpecification(specification).FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<TEntity>> GetAllAsync<TSpecification>(
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
+    {
+        var specification = (TSpecification)Activator.CreateInstance(typeof(TSpecification))!;
+        return await Queryable.AddSpecification(specification).ToListAsync();
+    }
+
+    public async Task<IEnumerable<TEntity>> GetManyAsync<TSpecification>(TSpecification specification,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
+        => await Queryable.AddSpecification(specification).ToListAsync(cancellationToken ?? CancellationToken.None);
+
+    public async Task<TEntity?> GetOneAsync<TSpecification>(TSpecification specification,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
+        => await Queryable.AddSpecification(specification).FirstOrDefaultAsync();
+
+    public async Task<bool> ExistsAsync<TSpecification>(TSpecification specification,
+        CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
+        => await Queryable.AddSpecification(specification).AnyAsync();
+
+    #endregion
+
 
     private async Task SaveChangesAsync(CancellationToken? cancellationToken = null)
         => await _context.SaveChangesAsync(cancellationToken ?? CancellationToken.None);
