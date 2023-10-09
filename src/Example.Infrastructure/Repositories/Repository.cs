@@ -65,14 +65,14 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     public async Task<TEntity?> GetByIdAsync<TSpecification>(Guid id,
         CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
     {
-        var specification = (TSpecification)Activator.CreateInstance(typeof(TSpecification), PredicateById(id))!;
+        var specification = (TSpecification)Activator.CreateInstance(typeof(TSpecification), id)!;
         return await Queryable.AddSpecification(specification).FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync<TSpecification>(
         CancellationToken? cancellationToken = null) where TSpecification : Specification<TEntity>
     {
-        var specification = (TSpecification)Activator.CreateInstance(typeof(TSpecification))!;
+        var specification = (TSpecification)Activator.CreateInstance(typeof(TSpecification), null)!;
         return await Queryable.AddSpecification(specification).ToListAsync();
     }
 
