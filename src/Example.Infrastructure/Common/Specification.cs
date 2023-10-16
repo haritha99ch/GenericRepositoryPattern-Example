@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace Example.Infrastructure.Common;
-public abstract class Specification<TEntity> where TEntity : Entity
+public class Specification<TEntity> where TEntity : Entity
 {
     public readonly Expression<Func<TEntity, bool>>? PredicateBy;
     public List<Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>> Includes { get; } = new();

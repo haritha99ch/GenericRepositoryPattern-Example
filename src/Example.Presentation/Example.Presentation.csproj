@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="34.0.2" />
+      <PackageReference Include="Mapster" Version="7.4.1-pre01" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0-rc.1.23419.4" />
     </ItemGroup>
 

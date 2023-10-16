@@ -7,7 +7,7 @@ public class Member : Entity
     [Required]
     public required string LastName { get; set; }
     [Required]
-    public required DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
     [Required]
     public required string PhoneNumber { get; set; }
     [Required]

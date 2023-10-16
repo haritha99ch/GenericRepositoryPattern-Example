@@ -17,12 +17,11 @@ internal static class SpecificationEvaluator
     {
         var query = inputQuery;
 
-        if (specification.PredicateBy != null)
-            query = query.Where(specification.PredicateBy);
-
         if (specification.Includes.Any())
             query = specification.Includes
                 .Aggregate(query, (current, include) => include(current));
+        if (specification.PredicateBy != null)
+            query = query.Where(specification.PredicateBy);
 
         if (specification.OrderBy != null) query = query.OrderBy(specification.OrderBy);
 
@@ -30,5 +29,20 @@ internal static class SpecificationEvaluator
             query = query.OrderByDescending(specification.OrderByDescending);
 
         return query;
+    }
+
+    /// <summary>
+    ///     Create an instance of provided <see cref="Specification{TEntity}"/> type and add specification
+    /// </summary>
+    /// <param name="inputQuery"></param>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <typeparam name="TSpecification"></typeparam>
+    /// <returns></returns>
+    internal static IQueryable<TEntity> AddSpecification<TEntity, TSpecification>(this IQueryable<TEntity> inputQuery)
+        where TSpecification : Specification<TEntity>
+        where TEntity : Entity
+    {
+        var specification = Activator.CreateInstance<TSpecification>();
+        return inputQuery.AddSpecification(specification);
     }
 }
