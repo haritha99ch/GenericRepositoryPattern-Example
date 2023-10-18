@@ -46,11 +46,11 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
     public async Task<bool> DeleteAsync(Guid id, CancellationToken? cancellationToken = null)
     {
-        var record = await GetByIdAsync(id, cancellationToken);
-        if (record == null) return false;
-        EntitySet.Remove(record);
+        var record = await ExistsAsync(id, cancellationToken);
+        if (!record) return false;
+        await EntitySet.Where(e => e.Id == id).ExecuteDeleteAsync();
         await SaveChangesAsync(cancellationToken);
-        return await GetByIdAsync(id, cancellationToken) == null;
+        return !await ExistsAsync(id, cancellationToken);
     }
 
     public async Task<bool> ExistsAsync(Guid id, CancellationToken? cancellationToken = null)
@@ -93,11 +93,8 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         Expression<Func<TEntity, TResult>> selector,
         CancellationToken? cancellationToken = null)
         where TResult : EntitySelector<TEntity, TResult>
-    {
-        var i = Queryable.Select(selector);
-        return await Queryable.Where(PredicateById(id)).Select(selector)
+        => await Queryable.Where(PredicateById(id)).Select(selector)
             .FirstOrDefaultAsync(cancellationToken ?? CancellationToken.None);
-    }
 
     public async Task<IEnumerable<TResult>> GetAllAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
         CancellationToken? cancellationToken = null)

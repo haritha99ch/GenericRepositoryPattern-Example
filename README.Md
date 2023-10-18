@@ -1,1 +1,1 @@
-# Generic Repository Pattern .NET (EF, MediatR, Specification, Selector)
+# Entity Framework: Advance Generic Repository Pattern .NET (Specification, Selector)

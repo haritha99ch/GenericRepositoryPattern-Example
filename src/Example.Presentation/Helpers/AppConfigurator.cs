@@ -2,6 +2,7 @@
 using Example.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Example.Presentation.Helpers;
 public static class AppConfigurator
@@ -15,5 +16,12 @@ public static class AppConfigurator
     public static void ConfigureConfiguration(this IConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.AddAppSettings();
+    }
+
+    public static IHost CreateApp()
+    {
+        return Host.CreateDefaultBuilder()
+            .ConfigureHostConfiguration(config => config.ConfigureConfiguration())
+            .ConfigureServices((_, services) => services.ConfigureServices()).Build();
     }
 }
