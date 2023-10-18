@@ -10,7 +10,7 @@ namespace Example.Infrastructure;
 public static class Configure
 {
     /// <summary>
-    ///     <see cref="Example.AppSettings.Configure.AddAppSettingsOptions" /> must be called before this
+    /// <see cref="Example.AppSettings.Configure.AddAppSettingsOptions" /> must be called before this
     /// </summary>
     public static void AddInfrastructure(this IServiceCollection services)
     {

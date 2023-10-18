@@ -13,7 +13,7 @@ public static class AppConfigurator
         services.AddInfrastructure();
     }
 
-    public static void ConfigureConfiguration(this IConfigurationBuilder configurationBuilder)
+    private static void ConfigureConfiguration(this IConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.AddAppSettings();
     }

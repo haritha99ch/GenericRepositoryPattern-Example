@@ -6,7 +6,7 @@ namespace Example.Infrastructure.Helpers;
 internal static class SpecificationEvaluator
 {
     /// <summary>
-    ///     Adds filtering, eager loading of related entities, and sorting based on the provided specification.
+    /// Adds filtering, eager loading of related entities, and sorting based on the provided specification.
     /// </summary>
     /// <param name="inputQuery"><see cref="Repository{TEntity}.Queryable"/></param>
     /// <param name="specification"><see cref="Specification{TEntity}"/></param>
@@ -32,7 +32,7 @@ internal static class SpecificationEvaluator
     }
 
     /// <summary>
-    ///     Create an instance of provided <see cref="Specification{TEntity}"/> type and add specification
+    /// Create an instance of provided non-predicated <see cref="Specification{TEntity}"/> type and add specification
     /// </summary>
     /// <param name="inputQuery"></param>
     /// <typeparam name="TEntity"></typeparam>
