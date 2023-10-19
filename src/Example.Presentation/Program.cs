@@ -162,15 +162,6 @@ IEnumerable<BlogListItemDetails> allBlogListItemDetails =
 Log.WriteLine(allBlogListItemDetails);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Console.Write("\nGet All blogs list details...");
-Console.ReadKey();
-
-IEnumerable<BlogListItemDetails> allBlogWithMemberListItemDetails =
-    await blogRepository.GetAllAsync<BlogListItemDetails, BlogWithMember>(BlogListItemDetails.Selector);
-
-Log.WriteLine(allBlogWithMemberListItemDetails);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 Console.Write("\nGet All age restricted blogs list details...");
 Console.ReadKey();

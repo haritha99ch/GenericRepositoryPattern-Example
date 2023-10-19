@@ -105,19 +105,6 @@ public interface IRepository<TEntity> where TEntity : Entity
     Task<IEnumerable<TResult>> GetAllAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
         CancellationToken? cancellationToken = null) where TResult : EntitySelector<TEntity, TResult>;
 
-    /// <summary>
-    /// Get all, by selecting specific properties from the entity, with non-predicated Specification that may include: Order, Joins.
-    /// </summary>
-    /// <param name="selector">Selector mapping. <see cref="EntitySelector{TEntity,TResult}.Selector"/></param>
-    /// <param name="cancellationToken"></param>
-    /// <typeparam name="TResult">Named object that abstracts <see cref="EntitySelector{TEntity,TResult}"/></typeparam>
-    /// <typeparam name="TSpecification">Predicated Specification</typeparam>
-    /// <returns>Named object that contains selected properties of the entity</returns>
-    Task<IEnumerable<TResult>> GetAllAsync<TResult, TSpecification>(Expression<Func<TEntity, TResult>> selector,
-        CancellationToken? cancellationToken = null)
-        where TResult : EntitySelector<TEntity, TResult>
-        where TSpecification : Specification<TEntity>;
-
     Task<TResult?> GetOneAsync<TResult, TSpecification>(TSpecification specification,
         Expression<Func<TEntity, TResult>> selector,
         CancellationToken? cancellationToken = null)

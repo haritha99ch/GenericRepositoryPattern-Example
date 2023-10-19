@@ -108,13 +108,6 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         => await Queryable.AddSpecification<TEntity, TSpecification>().Where(PredicateById(id)).Select(selector)
             .FirstOrDefaultAsync(cancellationToken ?? CancellationToken.None);
 
-    public async Task<IEnumerable<TResult>> GetAllAsync<TResult, TSpecification>(
-        Expression<Func<TEntity, TResult>> selector, CancellationToken? cancellationToken = null)
-        where TResult : EntitySelector<TEntity, TResult>
-        where TSpecification : Specification<TEntity>
-        => await Queryable.AddSpecification<TEntity, TSpecification>().Select(selector)
-            .ToListAsync(cancellationToken ?? CancellationToken.None);
-
     public async Task<IEnumerable<TResult>> GetManyAsync<TResult, TSpecification>(TSpecification specification,
         Expression<Func<TEntity, TResult>> selector,
         CancellationToken? cancellationToken = null)
